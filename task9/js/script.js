@@ -37,4 +37,47 @@ header.addEventListener('click', function(e){
 
 });
 
+let deadline = '2019-08-13';
+
+function getTime(endtime) {
+    let t = Date.parse(endtime) - Date.parse(new Date()), 
+        seconds, minutes, hours;
+    if (t < 0) {
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        t = 0;
+    }    else {
+                seconds = Math.floor((t/1000) % 60);
+                minutes = Math.floor((t/1000/60) % 60);
+                hours = Math.floor(t/1000/60/60);
+            }
+    return {
+        'total' : t,
+        "hours" : hours,
+        'minutes': minutes,
+        'seconds' : seconds
+    };
+}
+
+function setTime(id, endtime) {
+    let timer = document.getElementById(id),
+        hours = timer.querySelector('.hours'),
+        minutes = timer.querySelector('.minutes'),
+        seconds = timer.querySelector('.seconds'),
+        timeInterval = setInterval(updateTime, 1000);
+    
+    function updateTime() {
+        let t = getTime(endtime);
+            hours.textContent = (''+t.hours).replace(/\b\d\b/, '0$&');
+            minutes.textContent = (''+t.minutes).replace(/\b\d\b/, '0$&');
+            seconds.textContent = (''+t.seconds).replace(/\b\d\b/, '0$&');
+        if (t.total == 0) {
+            clearInterval(timeInterval);
+        }
+    }
+        
+}
+
+setTime('timer', deadline);
 });
