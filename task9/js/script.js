@@ -37,21 +37,14 @@ header.addEventListener('click', function(e){
 
 });
 
-let deadline = '2019-08-13';
+let deadline = '2019-08-18';
 
 function getTime(endtime) {
-    let t = Date.parse(endtime) - Date.parse(new Date()), 
-        seconds, minutes, hours;
-    if (t < 0) {
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
-        t = 0;
-    }    else {
-                seconds = Math.floor((t/1000) % 60);
-                minutes = Math.floor((t/1000/60) % 60);
-                hours = Math.floor(t/1000/60/60);
-            }
+    let t = Date.parse(endtime) - Date.parse(new Date()),
+        seconds = Math.floor((t/1000) % 60),
+        minutes = Math.floor((t/1000/60) % 60),
+        hours = Math.floor(t/1000/60/60);
+
     return {
         'total' : t,
         "hours" : hours,
@@ -72,8 +65,11 @@ function setTime(id, endtime) {
             hours.textContent = (''+t.hours).replace(/\b\d\b/, '0$&');
             minutes.textContent = (''+t.minutes).replace(/\b\d\b/, '0$&');
             seconds.textContent = (''+t.seconds).replace(/\b\d\b/, '0$&');
-        if (t.total == 0) {
+        if (t.total <= 0) {
             clearInterval(timeInterval);
+            hours.textContent = '00';
+            minutes.textContent = '00';
+            seconds.textContent = '00';
         }
     }
         
