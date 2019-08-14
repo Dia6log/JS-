@@ -1,8 +1,26 @@
 window.addEventListener('DOMContentLoaded', function() {
 'use strict';
+class Overlay {
+    constructor(classBtn) {
+        this.btn = document.querySelectorAll('.'+ classBtn);
+    }
+    
+    clickBtn(i) {
+            this.btn[i].addEventListener('click', function() {
+            overlay.style.display = 'block';
+           // this.btn[i].classList.add('more-splash');
+            window.document.body.style.overflow = 'hidden';  
+        });
+    }
+}
+
 let tab = document.querySelectorAll('.info-header-tab'),
     tabContent = document.querySelectorAll('.info-tabcontent'),
-    header = document.querySelector('.info-header');
+    header = document.querySelector('.info-header'),
+    overlay = document.querySelector('.overlay'),
+    closeBtn = document.querySelector('.popup-close'),
+    tabMoreBtn = new Overlay('description-btn');
+
 
 function hideTabContent(index) {
     for (let i = index; i < tabContent.length; i++) {
@@ -11,13 +29,16 @@ function hideTabContent(index) {
     }
 }
 
-hideTabContent(1); 
+hideTabContent(1);
+tabMoreBtn.clickBtn(0);
+
 
 function showTabContent(tabIndex) {
     if (tabContent[tabIndex].classList.contains('hide')) {
     tabContent[tabIndex].classList.remove('hide');
     tabContent[tabIndex].classList.add('show');
     }
+    tabMoreBtn.clickBtn(tabIndex);
 }
 
 //showTabContent(2);
@@ -76,4 +97,28 @@ function setTime(id, endtime) {
 }
 
 setTime('timer', deadline);
+
+
+// let moreBtn = document.querySelector('.more');
+ 
+// moreBtn.addEventListener('click', function() {
+//     overlay.style.display = 'block';
+//     this.classList.add('more-splash');
+//     document.body.style.overflow = 'hidden';
+
+// });
+
+closeBtn.addEventListener('click', function() {
+    overlay.style.display = 'none';
+    //moreBtn.classList.remove('more-splash');
+    document.body.style.overflow = '';
+});
+
+let timerMoreBtn = new Overlay('more');
+    timerMoreBtn.clickBtn(0);
+
+
+
+
+
 });
