@@ -1,15 +1,17 @@
 window.addEventListener('DOMContentLoaded', function() {
 'use strict';
+
 class Overlay {
     constructor(classBtn) {
         this.btn = document.querySelectorAll('.'+ classBtn);
     }
     
     clickBtn(i) {
-            this.btn[i].addEventListener('click', function() {
-            overlay.style.display = 'block';
-           // this.btn[i].classList.add('more-splash');
-            window.document.body.style.overflow = 'hidden';  
+        i = i || 0;
+        this.btn[i].addEventListener('click', function() {
+        overlay.style.display = 'block';
+        // this.btn[i].classList.add('more-splash');
+        window.document.body.style.overflow = 'hidden';  
         });
     }
 }
@@ -30,7 +32,7 @@ function hideTabContent(index) {
 }
 
 hideTabContent(1);
-tabMoreBtn.clickBtn(0);
+tabMoreBtn.clickBtn();
 
 
 function showTabContent(tabIndex) {
@@ -115,7 +117,7 @@ closeBtn.addEventListener('click', function() {
 });
 
 let timerMoreBtn = new Overlay('more');
-    timerMoreBtn.clickBtn(0);
+    timerMoreBtn.clickBtn();
 
 
 
